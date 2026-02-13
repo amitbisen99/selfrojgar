@@ -107,9 +107,9 @@
                             ['id' => 'wholesell', 'label' => 'Whole Sell', 'relation' => 'wholeSellProducts', 'route' => 'whole-sell-product.show', 'title' => 'name'],
                             ['id' => 'ondemand', 'label' => 'On Demand', 'relation' => 'onDemandServices', 'route' => 'on-demand-service.show', 'title' => 'name'],
                             ['id' => 'advertisement', 'label' => 'Ads', 'relation' => 'advertisements', 'route' => 'advertisement.show', 'title' => 'offer_name'],
-                            ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'route' => 'tourism.show', 'title' => 'name'],
+                            ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'route' => 'tourism-business.show', 'title' => 'name'],
                             ['id' => 'franchise', 'label' => 'Franchise', 'relation' => 'franchiseBusinesses', 'route' => 'franchise-business.show', 'title' => 'name'],
-                            ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'route' => 'business.show', 'title' => 'name'],
+                            ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'route' => 'businesses.show', 'title' => 'name'],
                         ];
 
                         $activeTab = null;
