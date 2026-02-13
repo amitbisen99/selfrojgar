@@ -135,4 +135,3 @@ class ProductCategoryController extends AdminThemeController
         return redirect()->route('product-category.index');
     }
 }
-}

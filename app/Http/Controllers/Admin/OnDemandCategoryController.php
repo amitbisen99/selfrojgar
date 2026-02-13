@@ -131,4 +131,3 @@ class OnDemandCategoryController extends AdminThemeController
         return redirect()->route('on-demand-category.index');
     }
 }
-}

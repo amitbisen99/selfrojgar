@@ -134,4 +134,3 @@ class GenresController extends AdminThemeController
         return redirect()->route('genres.index');
     }
 }
-}

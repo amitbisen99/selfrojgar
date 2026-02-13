@@ -54,5 +54,3 @@ class PaymentController extends AdminThemeController
         return response()->json(['success' => true]);
     }
 }
-    }
-}

@@ -77,6 +77,4 @@ class WholeSellProductController extends AdminThemeController
         return response()->json(['success' => true]);
     }
 }
-        return response()->json(['success' => true]);
-    }
-}
+

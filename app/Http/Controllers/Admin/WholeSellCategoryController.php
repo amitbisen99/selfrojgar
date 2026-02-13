@@ -131,4 +131,3 @@ class WholeSellCategoryController extends AdminThemeController
         return redirect()->route('whole-sell-category.index');
     }
 }
-}

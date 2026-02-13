@@ -143,4 +143,3 @@ class StateController extends AdminThemeController
         return redirect()->route('state.index');
     }
 }
-}

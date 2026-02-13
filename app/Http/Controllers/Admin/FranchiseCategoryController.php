@@ -131,4 +131,3 @@ class FranchiseCategoryController extends AdminThemeController
         return redirect()->route('franchise-category.index');
     }
 }
-}

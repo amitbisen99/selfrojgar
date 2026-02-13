@@ -135,4 +135,3 @@ class JobIndustryController extends AdminThemeController
         return redirect()->route('industry-job.index');
     }
 }
-}
