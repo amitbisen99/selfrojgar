@@ -14,7 +14,7 @@
                 		<h4 class="card-title">User Details</h4>
             		</div>
             		<div class="col-md-2" style="text-align: right;">
-						<a href="{{ route('user.index') }}" class="btn btn-danger head-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>                			
+						<a href="{{ route('user.index') }}" class="btn btn-danger head-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Back"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
             		</div>
 	            </div>
 	            <div class="card-datatable table-responsive p-2 pt-0">
@@ -88,5 +88,62 @@
 	        </div>
 	    </div>
 	</div>
+</section>
+
+
+<section id="user-posts">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">User Posts</h4>
+                </div>
+                <div class="card-body">
+                    @php
+                        $tabs = [
+                            ['id' => 'property', 'label' => 'Properties', 'relation' => 'properties', 'route' => 'propertyes.show', 'title' => 'name'],
+                            ['id' => 'job', 'label' => 'Jobs', 'relation' => 'jobs', 'route' => 'job.show', 'title' => 'role'],
+                            ['id' => 'product', 'label' => 'Products', 'relation' => 'products', 'route' => 'product.show', 'title' => 'product_name'],
+                            ['id' => 'wholesell', 'label' => 'Whole Sell', 'relation' => 'wholeSellProducts', 'route' => 'whole-sell-product.show', 'title' => 'name'],
+                            ['id' => 'ondemand', 'label' => 'On Demand', 'relation' => 'onDemandServices', 'route' => 'on-demand-service.show', 'title' => 'name'],
+                            ['id' => 'advertisement', 'label' => 'Ads', 'relation' => 'advertisements', 'route' => 'advertisement.show', 'title' => 'offer_name'],
+                            ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'route' => 'tourism.show', 'title' => 'name'],
+                            ['id' => 'franchise', 'label' => 'Franchise', 'relation' => 'franchiseBusinesses', 'route' => 'franchise-business.show', 'title' => 'name'],
+                            ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'route' => 'business.show', 'title' => 'name'],
+                        ];
+
+                        $activeTab = null;
+                        foreach($tabs as $key => $tab) {
+                            $tabs[$key]['count'] = $user->{$tab['relation']}->count();
+                            if(is_null($activeTab) && $tabs[$key]['count'] > 0){
+                                $activeTab = $tab['id'];
+                            }
+                        }
+                    @endphp
+
+                    @if(!is_null($activeTab))
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            @foreach($tabs as $tab)
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link {{ $activeTab == $tab['id'] ? 'active' : '' }}" id="{{ $tab['id'] }}-tab" data-bs-toggle="tab" data-bs-target="#{{ $tab['id'] }}" type="button" role="tab" aria-controls="{{ $tab['id'] }}" aria-selected="{{ $activeTab == $tab['id'] ? 'true' : 'false' }}">
+                                        {{ $tab['label'] }} @if($tab['count'] > 0) <span class="badge bg-secondary ms-1">{{ $tab['count'] }}</span> @endif
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            @foreach($tabs as $tab)
+                                    <div class="tab-pane fade {{ $activeTab == $tab['id'] ? 'show active' : '' }}" id="{{ $tab['id'] }}" role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab">
+                                        @include('admin.user.partials.post_table', ['posts' => $user->{$tab['relation']}, 'route' => $tab['route'], 'title' => $tab['title']])
+                                    </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="alert alert-info p-2">No posts found for this user.</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection

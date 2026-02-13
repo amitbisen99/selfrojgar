@@ -73,10 +73,55 @@ class User extends Authenticatable
     // Define a method to modify the profile pic URL
     private function modifyProfilePicUrl($url)
     {
-        if(!is_null($url)){
+        if (!is_null($url)) {
             return asset($url);
-        }else{
+        } else {
             return null;
         }
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class, 'user_id');
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'user_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function wholeSellProducts()
+    {
+        return $this->hasMany(WholeSellProduct::class, 'user_id');
+    }
+
+    public function onDemandServices()
+    {
+        return $this->hasMany(OnDemandService::class, 'user_id');
+    }
+
+    public function advertisements()
+    {
+        return $this->hasMany(Advertisement::class, 'user_id');
+    }
+
+    public function tourisms()
+    {
+        return $this->hasMany(Tourism::class, 'user_id');
+    }
+
+    public function franchiseBusinesses()
+    {
+        return $this->hasMany(FranchiseBusiness::class, 'user_id');
+    }
+
+    public function businesses()
+    {
+        return $this->hasMany(Business::class, 'user_id');
     }
 }
