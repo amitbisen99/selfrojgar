@@ -82,4 +82,17 @@ class JobController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $job = Job::find($id);
+        if (!is_null($job)) {
+            $job->delete();
+        }
+
+        notificationMsg('success', 'Job deleted sucessfully.');
+
+        return redirect()->back();
+    }
+
 }

@@ -75,8 +75,20 @@ class AdvertisementController extends AdminThemeController
         }
 
         $status = $request->status == 1 ? 'activated' : 'inactivated';
-        notificationMsg('success', 'business '.$status.' sucessfully.');
+        notificationMsg('success', 'Advertisement '.$status.' sucessfully.');
 
         return response()->json(['success' => true]);
+    }
+
+    public function destroy($id)
+    {
+        $advertisement = Advertisement::find($id);
+        if (!is_null($advertisement)) {
+            $advertisement->delete();
+        }
+
+        notificationMsg('success', 'Advertisement deleted sucessfully.');
+
+        return redirect()->back();
     }
 }

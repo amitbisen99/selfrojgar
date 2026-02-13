@@ -82,5 +82,17 @@ class ProductController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        if (!is_null($product)) {
+            $product->delete();
+        }
+
+        notificationMsg('success', 'product deleted sucessfully.');
+
+        return redirect()->back();
+    }
 }
 

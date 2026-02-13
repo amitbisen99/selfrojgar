@@ -81,4 +81,16 @@ class BusinessesController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $business = business::find($id);
+        if (!is_null($business)) {
+            $business->delete();
+        }
+
+        notificationMsg('success', 'business deleted sucessfully.');
+
+        return redirect()->back();
+    }
 }

@@ -79,4 +79,17 @@ class OnDemandServiceController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $onDemandService = OnDemandService::find($id);
+        if (!is_null($onDemandService)) {
+            $onDemandService->delete();
+        }
+
+        notificationMsg('success', 'on Demand Service deleted sucessfully.');
+
+        return redirect()->back();
+    }
+
 }

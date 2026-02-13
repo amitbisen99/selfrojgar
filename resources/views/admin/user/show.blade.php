@@ -101,15 +101,15 @@
                 <div class="card-body">
                     @php
                         $tabs = [
-                            ['id' => 'property', 'label' => 'Properties', 'relation' => 'properties', 'route' => 'propertyes.show', 'title' => 'name'],
-                            ['id' => 'job', 'label' => 'Jobs', 'relation' => 'jobs', 'route' => 'job.show', 'title' => 'role'],
-                            ['id' => 'product', 'label' => 'Products', 'relation' => 'products', 'route' => 'product.show', 'title' => 'product_name'],
-                            ['id' => 'wholesell', 'label' => 'Whole Sell', 'relation' => 'wholeSellProducts', 'route' => 'whole-sell-product.show', 'title' => 'name'],
-                            ['id' => 'ondemand', 'label' => 'On Demand', 'relation' => 'onDemandServices', 'route' => 'on-demand-service.show', 'title' => 'name'],
-                            ['id' => 'advertisement', 'label' => 'Ads', 'relation' => 'advertisements', 'route' => 'advertisement.show', 'title' => 'offer_name'],
-                            ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'route' => 'tourism-business.show', 'title' => 'name'],
-                            ['id' => 'franchise', 'label' => 'Franchise', 'relation' => 'franchiseBusinesses', 'route' => 'franchise-business.show', 'title' => 'name'],
-                            ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'route' => 'businesses.show', 'title' => 'name'],
+                            ['id' => 'property', 'label' => 'Properties', 'relation' => 'properties', 'destroy_route' => 'propertyes.destroy','route' => 'propertyes.show', 'title' => 'name'],
+                            ['id' => 'job', 'label' => 'Jobs', 'relation' => 'jobs', 'destroy_route' => 'job.destroy','route' => 'job.show', 'title' => 'role'],
+                            ['id' => 'product', 'label' => 'Products', 'relation' => 'products', 'destroy_route' => 'product.destroy','route' => 'product.show', 'title' => 'product_name'],
+                            ['id' => 'wholesell', 'label' => 'Whole Sell', 'relation' => 'wholeSellProducts', 'destroy_route' => 'whole-sell-product.destroy','route' => 'whole-sell-product.show', 'title' => 'name'],
+                            ['id' => 'ondemand', 'label' => 'On Demand', 'relation' => 'onDemandServices', 'destroy_route' => 'on-demand-service.destroy','route' => 'on-demand-service.show', 'title' => 'name'],
+                            ['id' => 'advertisement', 'label' => 'Ads', 'relation' => 'advertisements', 'destroy_route' => 'advertisement.destroy','route' => 'advertisement.show', 'title' => 'offer_name'],
+                            ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'destroy_route' => 'tourism-business.destroy','route' => 'tourism-business.show', 'title' => 'name'],
+                            ['id' => 'franchise', 'label' => 'Franchise', 'relation' => 'franchiseBusinesses', 'destroy_route' => 'franchise-business.destroy','route' => 'franchise-business.show', 'title' => 'name'],
+                            ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'destroy_route' => 'businesses.destroy','route' => 'businesses.show', 'title' => 'name'],
                         ];
 
                         $activeTab = null;
@@ -134,7 +134,7 @@
                         <div class="tab-content" id="myTabContent">
                             @foreach($tabs as $tab)
                                     <div class="tab-pane fade {{ $activeTab == $tab['id'] ? 'show active' : '' }}" id="{{ $tab['id'] }}" role="tabpanel" aria-labelledby="{{ $tab['id'] }}-tab">
-                                        @include('admin.user.partials.post_table', ['posts' => $user->{$tab['relation']}, 'route' => $tab['route'], 'title' => $tab['title']])
+                                        @include('admin.user.partials.post_table', ['posts' => $user->{$tab['relation']}, 'route' => $tab['route'], 'destroy_route' => $tab['destroy_route'], 'title' => $tab['title']])
                                     </div>
                             @endforeach
                         </div>

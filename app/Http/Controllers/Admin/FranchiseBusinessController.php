@@ -77,4 +77,16 @@ class FranchiseBusinessController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $franchiseBusiness = FranchiseBusiness::find($id);
+        if (!is_null($franchiseBusiness)) {
+            $franchiseBusiness->delete();
+        }
+
+        notificationMsg('success', 'Franchise deleted sucessfully.');
+
+        return redirect()->back();
+    }
 }

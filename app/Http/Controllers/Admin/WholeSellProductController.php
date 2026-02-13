@@ -76,5 +76,17 @@ class WholeSellProductController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $wholeSellProduct = WholeSellProduct::find($id);
+        if (!is_null($wholeSellProduct)) {
+            $wholeSellProduct->delete();
+        }
+
+        notificationMsg('success', 'Whole Sell Product deleted sucessfully.');
+
+        return redirect()->back();
+    }
 }
 

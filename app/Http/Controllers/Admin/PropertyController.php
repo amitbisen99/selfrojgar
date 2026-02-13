@@ -78,4 +78,16 @@ class PropertyController extends AdminThemeController
 
         return response()->json(['success' => true]);
     }
+
+    public function destroy($id)
+    {
+        $property = Property::find($id);
+        if (!is_null($property)) {
+            $property->delete();
+        }
+
+        notificationMsg('success', 'property deleted sucessfully.');
+
+        return redirect()->back();
+    }
 }

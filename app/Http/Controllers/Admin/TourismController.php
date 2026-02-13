@@ -73,8 +73,20 @@ class TourismController extends AdminThemeController
         }
 
         $status = $request->status == 1 ? 'activated' : 'inactivated';
-        notificationMsg('success', 'Franchise '.$status.' sucessfully.');
+        notificationMsg('success', 'Tourism '.$status.' sucessfully.');
 
         return response()->json(['success' => true]);
+    }
+
+    public function destroy($id)
+    {
+        $tourism = Tourism::find($id);
+        if (!is_null($tourism)) {
+            $tourism->delete();
+        }
+
+        notificationMsg('success', 'Tourism deleted sucessfully.');
+
+        return redirect()->back();
     }
 }
