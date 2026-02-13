@@ -1,0 +1,14 @@
+
+RewriteOptions inherit
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+    RewriteBase selfrojgar/
+
+    RewriteRule ^$ public/index.php [L]
+
+    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+</IfModule> 
+RewriteCond %{HTTP_HOST} ^.*$
+RewriteRule ^/?$ "https\:\/\/selfrojgar\.in\/" [R=301,L]

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #d9534f;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 0.5rem; 
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="email"]:focus {
+            border-color: #d9534f;
+            outline: none;
+        }
+
+        .error-message {
+            color: #d9534f; 
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+            text-align: left;
+
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; 
+        }
+
+        button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%; 
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%; /* Center horizontally */
+            top: 20px;  /* Position it near the top */
+            transform: translateX(-50%); /* Shift back to center */
+            font-size: 17px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes fadeout {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Delete Account</h2>
+    <p>Are you sure you want to permanently delete your account? This action cannot be undone.</p>
+    <form id="deleteForm" action="#" method="POST">
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+        <div id="error-message" class="error-message"></div> <!-- Error message div -->
+
+        <div class="button-container">
+            <button type="button" onclick="onDelete()">Delete</button>
+        </div>
+    </form>
+</div>
+
+<div id="snackbar"></div> <!-- Snackbar for confirmation message -->
+
+<script>
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple regex for email validation
+    return re.test(String(email).toLowerCase());
+}
+
+function showSnackbar(message) {
+    const snackbar = document.getElementById("snackbar");
+    snackbar.textContent = message;
+    snackbar.className = "show";
+    setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+}
+
+function onDelete() {
+    const emailInput = document.getElementById("email");
+    const email = emailInput.value.trim();
+    const errorMessageDiv = document.getElementById("error-message");
+    
+    // Clear previous error messages
+    errorMessageDiv.innerText = '';
+
+    if (email === "") {
+        errorMessageDiv.innerText = "Please enter your email.";
+        return; // Early return if email is empty
+    } else if (!validateEmail(email)) {
+        errorMessageDiv.innerText = "Please enter a valid email address.";
+        return; // Early return if email is invalid
+    } else {
+        // Show confirmation message in snackbar
+        showSnackbar("Your request is received. We will check, if your account exists then we delete that from our platform. Thanks for being with us!");
+        
+        emailInput.value = ''
+        
+        // Here you can add further actions to delete the account, like submitting the form.
+        // document.getElementById("deleteForm").submit(); 
+    }
+}
+</script>
+
+</body>
+</html>
