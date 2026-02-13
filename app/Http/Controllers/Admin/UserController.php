@@ -19,37 +19,50 @@ class UserController extends AdminThemeController
             $data  = User::select('users.*', 'cities.name as city_name', 'states.name as state_name', 'countries.name as country_name')
                 ->leftJoin('cities', 'users.city', '=', 'cities.id')
                 ->leftJoin('states', 'users.state', '=', 'states.id')
-                ->leftJoin('countries', 'users.country', '=', 'countries.id');
+                ->leftJoin('countries', 'users.country', '=', 'countries.id')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($data) {
+                ->filterColumn('city_name', function ($query, $keyword) {
+                    $query->where('cities.name', 'like', "%{$keyword}%");
+                })
+                ->filterColumn('state_name', function ($query, $keyword) {
+                    $query->where('states.name', 'like', "%{$keyword}%");
+                })
+                ->filterColumn('contact_number', function ($query, $keyword) {
+                    $query->where('users.contact_number', 'like', "%{$keyword}%");
+                })
+                ->filterColumn('name', function ($query, $keyword) {
+                    $query->where('users.name', 'like', "%{$keyword}%");
+                })
+                ->filterColumn('email', function ($query, $keyword) {
+                    $query->where('users.email', 'like', "%{$keyword}%");
+                })
+                ->addColumn('action', function ($data) {
                     // $action = '<a href="'.route('user.create').'" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
-                    $action = '<a href="'.route('user.show', $data->id).'" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+                    $action = '<a href="' . route('user.show', $data->id) . '" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                     return $action;
                 })
-                ->editColumn('status', function($data){
+                ->editColumn('status', function ($data) {
 
-                        if($data->status == 1){
-                            $switch = '<div class="row">
+                    if ($data->status == 1) {
+                        $switch = '<div class="row">
                                         <div class="col-4 p-0">Inactive</div>
-                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" checked value="1" data-action="'.route("user.status").'" data-id="'.$data->id.'"></div></div>
+                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" checked value="1" data-action="' . route("user.status") . '" data-id="' . $data->id . '"></div></div>
                                         <div class="col-3 p-0">Active</div>
                                     </div>';
-                        }else{
-                            $switch = '<div class="row">
+                    } else {
+                        $switch = '<div class="row">
                                         <div class="col-4 p-0">Inactive</div>
-                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" data-action="'.route("user.status").'" data-id="'.$data->id.'"></div></div>
+                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" data-action="' . route("user.status") . '" data-id="' . $data->id . '"></div></div>
                                         <div class="col-3 p-0">Active</div>
                                     </div>';
-                        }
+                    }
 
                     return $switch;
-
                 })
-                ->editColumn('created_at', function($data){
+                ->editColumn('created_at', function ($data) {
                     $created_at = Carbon::parse($data->created_at)->format('d/m/Y');
                     return $created_at;
-
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -94,11 +107,11 @@ class UserController extends AdminThemeController
     public function show($id)
     {
         $user = User::select('users.*', 'cities.name as city_name', 'states.name as state_name', 'countries.name as country_name')
-                        ->leftJoin('cities', 'users.city', '=', 'cities.id')
-                        ->leftJoin('states', 'users.state', '=', 'states.id')
-                        ->leftJoin('countries', 'users.country', '=', 'countries.id')
-                        ->where('users.id', $id)
-                        ->first();
+            ->leftJoin('cities', 'users.city', '=', 'cities.id')
+            ->leftJoin('states', 'users.state', '=', 'states.id')
+            ->leftJoin('countries', 'users.country', '=', 'countries.id')
+            ->where('users.id', $id)
+            ->first();
 
         return view('admin.user.show', compact('user'));
     }
@@ -125,7 +138,7 @@ class UserController extends AdminThemeController
 
         if (!empty($input['password'])) {
             $input['password'] = bcrypt($input['password']);
-        }else{
+        } else {
             $input['password'] = $user->password;
         }
 
@@ -143,7 +156,7 @@ class UserController extends AdminThemeController
         }
 
         $status = $request->status == 1 ? 'activated' : 'inactivated';
-        notificationMsg('success', 'user '.$status.' sucessfully.');
+        notificationMsg('success', 'user ' . $status . ' sucessfully.');
 
         return response()->json(['success' => true]);
     }

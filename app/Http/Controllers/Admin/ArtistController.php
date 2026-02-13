@@ -17,18 +17,18 @@ class ArtistController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = Artist::with(['genres', 'serviceProvider'])->get();
+            $data  = Artist::with(['genres', 'serviceProvider'])->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('user_id', function($data){
                         $edit = !is_null($data->serviceProvider) ? $data->serviceProvider->name : '';
                     return '<div class="table-actions"> '. $edit .' </div>';
-                    
+
                 })
                 ->editColumn('created_at', function($data){
                         $date = $data->created_at->format('Y-m-d H:i:s');
                     return $date;
-                    
+
                 })
                 ->editColumn('status', function($data){
 
@@ -47,7 +47,7 @@ class ArtistController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->addColumn('action', function($data) {
                     $action = '<a href="'.route('artist.show', $data).'" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
@@ -72,7 +72,7 @@ class ArtistController extends AdminThemeController
         if (!is_null($artist)) {
             $artist->update(['status' => $request->status]);
         }
-        
+
         $status = $request->status == 1 ? 'activated' : 'inactivated';
         notificationMsg('success', 'Artist '.$status.' sucessfully.');
 

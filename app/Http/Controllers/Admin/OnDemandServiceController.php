@@ -18,18 +18,18 @@ class OnDemandServiceController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = OnDemandService::with(['onDemandCategory', 'serviceProvider'])->get();
+            $data  = OnDemandService::with(['onDemandCategory', 'serviceProvider'])->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('user_id', function($data){
                         $edit = !is_null($data->serviceProvider) ? $data->serviceProvider->name : '';
                     return '<div class="table-actions"> '. $edit .' </div>';
-                    
+
                 })
                 ->editColumn('created_at', function($data){
                         $date = $data->created_at->format('Y-m-d H:i:s');
                     return $date;
-                    
+
                 })
                 ->editColumn('status', function($data){
 
@@ -48,7 +48,7 @@ class OnDemandServiceController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->addColumn('action', function($data) {
                     $action = '<a href="'.route('on-demand-service.show', $data).'" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
@@ -73,10 +73,13 @@ class OnDemandServiceController extends AdminThemeController
         if (!is_null($onDemandService)) {
             $onDemandService->update(['status' => $request->status]);
         }
-        
+
         $status = $request->status == 1 ? 'activated' : 'inactivated';
         notificationMsg('success', 'on Demand Service '.$status.' sucessfully.');
 
+        return response()->json(['success' => true]);
+    }
+}
         return response()->json(['success' => true]);
     }
 }

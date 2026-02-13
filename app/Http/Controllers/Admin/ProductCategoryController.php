@@ -16,7 +16,7 @@ class ProductCategoryController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = ProductCategory::select('*');
+            $data  = ProductCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -41,7 +41,7 @@ class ProductCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -70,7 +70,7 @@ class ProductCategoryController extends AdminThemeController
         ]);
 
         ProductCategory::create($input);
-        
+
         notificationMsg('success', 'Product Category created sucessfully.');
         return redirect()->route('product-category.index');
     }
@@ -105,7 +105,7 @@ class ProductCategoryController extends AdminThemeController
         ]);
 
         $productCategory->update($input);
-        
+
         notificationMsg('success', 'Country updated sucessfully.');
         return redirect()->route('product-category.index');
     }
@@ -130,8 +130,9 @@ class ProductCategoryController extends AdminThemeController
     {
         $productCategory = ProductCategory::find($id);
         $productCategory->delete();
-        
+
         notificationMsg('success', 'Country removed sucessfully.');
         return redirect()->route('product-category.index');
     }
+}
 }

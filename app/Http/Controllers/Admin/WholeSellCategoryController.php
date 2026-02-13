@@ -12,7 +12,7 @@ class WholeSellCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = WholeSellCategory::select('*');
+            $data  = WholeSellCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class WholeSellCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class WholeSellCategoryController extends AdminThemeController
         ]);
 
         WholeSellCategory::create($input);
-        
+
         notificationMsg('success', 'Whole Sell Category created sucessfully.');
         return redirect()->route('whole-sell-category.index');
     }
@@ -101,7 +101,7 @@ class WholeSellCategoryController extends AdminThemeController
         ]);
 
         $wholeSellCategory->update($input);
-        
+
         notificationMsg('success', 'Whole Sell Category updated sucessfully.');
         return redirect()->route('whole-sell-category.index');
     }
@@ -126,8 +126,9 @@ class WholeSellCategoryController extends AdminThemeController
     {
         $wholeSellCategory = WholeSellCategory::find($id);
         $wholeSellCategory->delete();
-        
+
         notificationMsg('success', 'Whole Sell Category removed sucessfully.');
         return redirect()->route('whole-sell-category.index');
     }
+}
 }

@@ -15,7 +15,7 @@ class GenresController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = Genres::select('*');
+            $data  = Genres::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -40,7 +40,7 @@ class GenresController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -69,7 +69,7 @@ class GenresController extends AdminThemeController
         ]);
 
         Genres::create($input);
-        
+
         notificationMsg('success', 'Product Category created sucessfully.');
         return redirect()->route('genres.index');
     }
@@ -104,7 +104,7 @@ class GenresController extends AdminThemeController
         ]);
 
         $genres->update($input);
-        
+
         notificationMsg('success', 'Country updated sucessfully.');
         return redirect()->route('genres.index');
     }
@@ -129,8 +129,9 @@ class GenresController extends AdminThemeController
     {
         $genres = Genres::find($id);
         $genres->delete();
-        
+
         notificationMsg('success', 'Country removed sucessfully.');
         return redirect()->route('genres.index');
     }
+}
 }

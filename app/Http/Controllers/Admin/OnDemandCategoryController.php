@@ -12,7 +12,7 @@ class OnDemandCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = OnDemandCategory::select('*');
+            $data  = OnDemandCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class OnDemandCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class OnDemandCategoryController extends AdminThemeController
         ]);
 
         OnDemandCategory::create($input);
-        
+
         notificationMsg('success', 'On Demand Category created sucessfully.');
         return redirect()->route('on-demand-category.index');
     }
@@ -101,7 +101,7 @@ class OnDemandCategoryController extends AdminThemeController
         ]);
 
         $onDemandCategory->update($input);
-        
+
         notificationMsg('success', 'On Demand Category updated sucessfully.');
         return redirect()->route('on-demand-category.index');
     }
@@ -126,8 +126,9 @@ class OnDemandCategoryController extends AdminThemeController
     {
         $onDemandCategory = OnDemandCategory::find($id);
         $onDemandCategory->delete();
-        
+
         notificationMsg('success', 'On Demand Category removed sucessfully.');
         return redirect()->route('on-demand-category.index');
     }
+}
 }

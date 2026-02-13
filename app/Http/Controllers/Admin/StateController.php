@@ -17,7 +17,7 @@ class StateController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = State::select('*');
+            $data  = State::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -46,7 +46,7 @@ class StateController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -76,7 +76,7 @@ class StateController extends AdminThemeController
         ]);
 
         State::create($input);
-        
+
         notificationMsg('success', 'State created sucessfully.');
         return redirect()->route('state.index');
     }
@@ -113,7 +113,7 @@ class StateController extends AdminThemeController
         ]);
 
         $state->update($input);
-        
+
         notificationMsg('success', 'State updated sucessfully.');
         return redirect()->route('state.index');
     }
@@ -138,8 +138,9 @@ class StateController extends AdminThemeController
     {
         $State = State::find($id);
         $State->delete();
-        
+
         notificationMsg('success', 'State removed sucessfully.');
         return redirect()->route('state.index');
     }
+}
 }

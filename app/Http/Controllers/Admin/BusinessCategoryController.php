@@ -12,7 +12,7 @@ class BusinessCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = BusinessCategory::select('*');
+            $data  = BusinessCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class BusinessCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class BusinessCategoryController extends AdminThemeController
         ]);
 
         BusinessCategory::create($input);
-        
+
         notificationMsg('success', 'Business Category created sucessfully.');
         return redirect()->route('business-category.index');
     }
@@ -101,7 +101,7 @@ class BusinessCategoryController extends AdminThemeController
         ]);
 
         $businessCategory->update($input);
-        
+
         notificationMsg('success', 'Business Category updated sucessfully.');
         return redirect()->route('business-category.index');
     }
@@ -126,7 +126,7 @@ class BusinessCategoryController extends AdminThemeController
     {
         $businessCategory = BusinessCategory::find($id);
         $businessCategory->delete();
-        
+
         notificationMsg('success', 'Business Category removed sucessfully.');
         return redirect()->route('business-category.index');
     }

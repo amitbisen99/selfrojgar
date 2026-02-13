@@ -16,7 +16,7 @@ class JobIndustryController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = JobIndustry::select('*');
+            $data  = JobIndustry::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -41,7 +41,7 @@ class JobIndustryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -70,7 +70,7 @@ class JobIndustryController extends AdminThemeController
         ]);
 
         JobIndustry::create($input);
-        
+
         notificationMsg('success', 'Job Industry created sucessfully.');
         return redirect()->route('industry-job.index');
     }
@@ -105,7 +105,7 @@ class JobIndustryController extends AdminThemeController
         ]);
 
         $jobIndustry->update($input);
-        
+
         notificationMsg('success', 'Job Industry updated sucessfully.');
         return redirect()->route('industry-job.index');
     }
@@ -119,7 +119,7 @@ class JobIndustryController extends AdminThemeController
 
         $status = $request->status == 1 ? 'activated' : 'inactivated';
         notificationMsg('success', 'Job Industry '.$status.' sucessfully.');
-        
+
         return response()->json(['success' => true]);
     }
 
@@ -130,8 +130,9 @@ class JobIndustryController extends AdminThemeController
     {
         $jobIndustry = JobIndustry::find($id);
         $jobIndustry->delete();
-        
+
         notificationMsg('success', 'Job Industry removed sucessfully.');
         return redirect()->route('industry-job.index');
     }
+}
 }

@@ -26,7 +26,7 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Country</th>
+                            <th>Phone</th>
                             <th>State</th>
                             <th>City</th>
                             <th style="min-width: 140px;">Status</th>
@@ -54,7 +54,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     {data:'name', name: 'name'},
                     {data:'email', name: 'email'},
-                    {data:'country_name', name: 'country_name'},
+                    {data:'contact_number', name: 'contact_number'},
                     {data:'state_name', name: 'state_name'},
                     {data:'city_name', name: 'city_name'},
                     {data:'status', name: 'status'},

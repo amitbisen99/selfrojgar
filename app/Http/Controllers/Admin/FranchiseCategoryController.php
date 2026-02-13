@@ -12,7 +12,7 @@ class FranchiseCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = FranchiseCategory::select('*');
+            $data  = FranchiseCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class FranchiseCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class FranchiseCategoryController extends AdminThemeController
         ]);
 
         FranchiseCategory::create($input);
-        
+
         notificationMsg('success', 'Franchise Category created sucessfully.');
         return redirect()->route('franchise-category.index');
     }
@@ -101,7 +101,7 @@ class FranchiseCategoryController extends AdminThemeController
         ]);
 
         $franchiseCategory->update($input);
-        
+
         notificationMsg('success', 'Franchise Category updated sucessfully.');
         return redirect()->route('franchise-category.index');
     }
@@ -126,8 +126,9 @@ class FranchiseCategoryController extends AdminThemeController
     {
         $franchiseCategory = FranchiseCategory::find($id);
         $franchiseCategory->delete();
-        
+
         notificationMsg('success', 'Franchise Category removed sucessfully.');
         return redirect()->route('franchise-category.index');
     }
+}
 }

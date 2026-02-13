@@ -16,7 +16,7 @@ class CountryController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = Country::select('*');
+            $data  = Country::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -41,7 +41,7 @@ class CountryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -70,7 +70,7 @@ class CountryController extends AdminThemeController
         ]);
 
         Country::create($input);
-        
+
         notificationMsg('success', 'Country created sucessfully.');
         return redirect()->route('country.index');
     }
@@ -105,7 +105,7 @@ class CountryController extends AdminThemeController
         ]);
 
         $country->update($input);
-        
+
         notificationMsg('success', 'Country updated sucessfully.');
         return redirect()->route('country.index');
     }
@@ -130,7 +130,7 @@ class CountryController extends AdminThemeController
     {
         $country = Country::find($id);
         $country->delete();
-        
+
         notificationMsg('success', 'Country removed sucessfully.');
         return redirect()->route('country.index');
     }

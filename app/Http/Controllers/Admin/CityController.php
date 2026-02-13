@@ -17,7 +17,7 @@ class CityController extends AdminThemeController
     {
         if ($request->ajax()) {
 
-            $data  = City::select('*');
+            $data  = City::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -46,7 +46,7 @@ class CityController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status', 'states_id'])
                 ->make(true);
@@ -76,7 +76,7 @@ class CityController extends AdminThemeController
         ]);
 
         City::create($input);
-        
+
         notificationMsg('success', 'City created sucessfully.');
         return redirect()->route('city.index');
     }
@@ -113,7 +113,7 @@ class CityController extends AdminThemeController
         ]);
 
         $city->update($input);
-        
+
         notificationMsg('success', 'City updated sucessfully.');
         return redirect()->route('city.index');
     }
@@ -138,7 +138,7 @@ class CityController extends AdminThemeController
     {
         $city = City::find($id);
         $city->delete();
-        
+
         notificationMsg('success', 'city removed sucessfully.');
         return redirect()->route('city.index');
     }

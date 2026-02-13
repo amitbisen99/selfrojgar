@@ -12,7 +12,7 @@ class TourismCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = TourismCategory::select('*');
+            $data  = TourismCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class TourismCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class TourismCategoryController extends AdminThemeController
         ]);
 
         TourismCategory::create($input);
-        
+
         notificationMsg('success', 'Franchise Category created sucessfully.');
         return redirect()->route('tourism-category.index');
     }
@@ -101,7 +101,7 @@ class TourismCategoryController extends AdminThemeController
         ]);
 
         $tourismCategory->update($input);
-        
+
         notificationMsg('success', 'Franchise Category updated sucessfully.');
         return redirect()->route('tourism-category.index');
     }
@@ -126,7 +126,7 @@ class TourismCategoryController extends AdminThemeController
     {
         $tourismCategory = TourismCategory::find($id);
         $tourismCategory->delete();
-        
+
         notificationMsg('success', 'Franchise Category removed sucessfully.');
         return redirect()->route('tourism-category.index');
     }

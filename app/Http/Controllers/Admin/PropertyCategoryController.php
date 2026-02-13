@@ -12,7 +12,7 @@ class PropertyCategoryController extends AdminThemeController
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data  = PropertyCategory::select('*');
+            $data  = PropertyCategory::select('*')->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($data) {
@@ -37,7 +37,7 @@ class PropertyCategoryController extends AdminThemeController
                         }
 
                     return $switch;
-                    
+
                 })
                 ->rawColumns(['action', 'status'])
                 ->make(true);
@@ -66,7 +66,7 @@ class PropertyCategoryController extends AdminThemeController
         ]);
 
         PropertyCategory::create($input);
-        
+
         notificationMsg('success', 'Business Category created sucessfully.');
         return redirect()->route('property-category.index');
     }
@@ -101,7 +101,7 @@ class PropertyCategoryController extends AdminThemeController
         ]);
 
         $propertyCategory->update($input);
-        
+
         notificationMsg('success', 'Business Category updated sucessfully.');
         return redirect()->route('property-category.index');
     }
@@ -126,7 +126,7 @@ class PropertyCategoryController extends AdminThemeController
     {
         $propertyCategory = PropertyCategory::find($id);
         $propertyCategory->delete();
-        
+
         notificationMsg('success', 'Business Category removed sucessfully.');
         return redirect()->route('property-category.index');
     }
