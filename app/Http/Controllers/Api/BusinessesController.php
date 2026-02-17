@@ -29,12 +29,13 @@ class BusinessesController extends BaseController
             $businesses = Business::with(['owner', 'businessCategory', 'city', 'state', 'country'])
                                ->where('status', 1)
                                ->withAvg('ratings', 'rating')
-                               ->whereRaw("
-                                    6371 * acos(
-                                        cos(radians(?)) * cos(radians(latitude)) *
-                                        cos(radians(longitude) - radians(?)) +
-                                        sin(radians(?)) * sin(radians(latitude))
-                                    ) < ?", [$latitude, $longitude, $latitude, $radius])
+                            //    ->whereRaw("
+                            //         6371 * acos(
+                            //             cos(radians(?)) * cos(radians(latitude)) *
+                            //             cos(radians(longitude) - radians(?)) +
+                            //             sin(radians(?)) * sin(radians(latitude))
+                            //         ) < ?", [$latitude, $longitude, $latitude, $radius])
+                               ->whereRaw("ST_Distance_Sphere(point(longitude, latitude), point(?, ?)) <= ?", [$longitude, $latitude, $radius * 1000])
                                ->orderBy('created_at', 'desc')
                                ->get();
         }else{

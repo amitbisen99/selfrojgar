@@ -18,13 +18,26 @@ class PropertyController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+ public function index()
     {
-        $propertyes = Property::with(['owner', 'propertyCategory', 'city', 'state', 'country'])
-                       ->where('status', 1)
-                       ->withAvg('ratings', 'rating')
-                       ->orderBy('created_at', 'desc')
-                       ->get();
+        $latitude = request()->latitude;
+        $longitude = request()->longitude;
+        $radius = request()->radius;
+
+        if ($latitude && $longitude && $radius) {
+            $propertyes = Property::with(['owner', 'propertyCategory', 'city', 'state', 'country'])
+                ->where('status', 1)
+                ->withAvg('ratings', 'rating')
+                ->whereRaw("ST_Distance_Sphere(point(longitude, latitude), point(?, ?)) <= ?", [$longitude, $latitude, $radius * 1000])
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $propertyes = Property::with(['owner', 'propertyCategory', 'city', 'state', 'country'])
+                ->where('status', 1)
+                ->withAvg('ratings', 'rating')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
 
 
         foreach ($propertyes as $key => $property) {

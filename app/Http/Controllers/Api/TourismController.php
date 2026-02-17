@@ -27,12 +27,14 @@ class TourismController extends BaseController
         if($latitude && $longitude && $radius){
             $tourismes = Tourism::with(['owner', 'tourismCategory', 'city', 'state', 'country'])
                                ->where('status', 1)
-                               ->whereRaw("
-                                    6371 * acos(
-                                        cos(radians(?)) * cos(radians(latitude)) *
-                                        cos(radians(longitude) - radians(?)) +
-                                        sin(radians(?)) * sin(radians(latitude))
-                                    ) < ?", [$latitude, $longitude, $latitude, $radius])
+                               // ->whereRaw("
+                               //      6371 * acos(
+                               //          cos(radians(?)) * cos(radians(latitude)) *
+                               //          cos(radians(longitude) - radians(?)) +
+                               //          sin(radians(?)) * sin(radians(latitude))
+                               //      ) < ?", [$latitude, $longitude, $latitude, $radius])
+                               // Note: ST_Distance_Sphere returns METERS, so we multiply radius by 1000
+                               ->whereRaw("ST_Distance_Sphere(point(longitude, latitude), point(?, ?)) <= ?", [$longitude, $latitude, $radius * 1000])
                                ->orderBy('created_at', 'desc')
                                ->get();
         }else{
