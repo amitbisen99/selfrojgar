@@ -4,6 +4,9 @@
             <tr>
                 <th>ID</th>
                 <th>Name/Title</th>
+                <th>User Name</th>
+                <th>City</th>
+                <th>State</th>
                 <th>Created At</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -15,6 +18,9 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $post->{$title ?? 'name'} ?? '-' }}</td>
+                        <td>{{ optional(\App\Models\User::find($post->user_id))->name ?? '-' }}</td>
+                        <td>{{ optional(\App\Models\City::find($post->city_id))->name ?? '-' }}</td>
+                        <td>{{ optional(\App\Models\State::find($post->state_id))->name ?? '-' }}</td>
                         <td>{{ $post->created_at->format('d/m/Y') }}</td>
                         <td>
                             @if($post->status == 1)
@@ -35,7 +41,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="5" class="text-center">No records found.</td>
+                    <td colspan="8" class="text-center">No records found.</td>
                 </tr>
             @endif
         </tbody>
