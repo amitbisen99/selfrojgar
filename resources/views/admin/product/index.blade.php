@@ -21,12 +21,14 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Rating</th>
+                            <th>City</th>
+                            <th>State</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                      
+
                     </tbody>
                 </table>
             </div>
@@ -45,6 +47,8 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     {data:'product_name', name: 'product_name'},
                     {data:'ratings_avg_rating', name: 'ratings_avg_rating'},
+                    {data:'city', name: 'city'},
+                    {data:'state', name: 'state'},
                     {data:'status', name: 'status'},
                     {data:'action', name: 'action'},
                 ]
@@ -53,4 +57,4 @@
         $.fn.dataTable.ext.errMode = 'throw';
       });
     </script>
-@endsection 
+@endsection

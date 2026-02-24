@@ -48,19 +48,26 @@ class Job extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    /**
-     * Get the post that owns the comment.
-     */
     public function jobIndustry()
     {
         return $this->hasOne(JobIndustry::class, 'id', 'job_industry_id');
     }
 
+    public function city()
+    {
+        return $this->hasOne(City::class, 'id', 'city_id');
+    }
+
+    public function state()
+    {
+        return $this->hasOne(State::class, 'id', 'state_id');
+    }
+
     public function getCompanyLogoAttribute($value)
     {
-        if(!is_null($value)){
+        if (!is_null($value)) {
             return asset($value);
-        }else{
+        } else {
             return null;
         }
     }

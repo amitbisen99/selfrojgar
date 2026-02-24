@@ -30,6 +30,7 @@ class Tourism extends Model
         'longitude',
         'images',
         'phone',
+        'status',
     ];
 
     /**

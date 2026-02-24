@@ -28,12 +28,14 @@
                             <th>Company</th>
                             <th>Role</th>
                             <th>Created At</th>
+                            <th>City</th>
+                            <th>State</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                      
+
                     </tbody>
                 </table>
             </div>
@@ -54,6 +56,8 @@
                     {data:'company_name', name: 'company_name'},
                     {data:'role', name: 'role'},
                     {data:'created_at', name: 'created_at'},
+                    {data:'city', name: 'city'},
+                    {data:'state', name: 'state'},
                     {data:'status', name: 'status'},
                     {data:'action', name: 'action'},
                 ]
@@ -62,4 +66,4 @@
         $.fn.dataTable.ext.errMode = 'throw';
       });
     </script>
-@endsection 
+@endsection
