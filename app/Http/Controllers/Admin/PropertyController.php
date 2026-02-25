@@ -28,6 +28,9 @@ class PropertyController extends AdminThemeController
                     $date = $data->created_at->format('Y-m-d H:i:s');
                     return $date;
                 })
+                ->addColumn('phone', function ($data) {
+                    return $data->owner ? $data->owner->contact_number : '';
+                })
                 ->addColumn('city', function ($data) {
                     return $data->city ? $data->city->name : '';
                 })

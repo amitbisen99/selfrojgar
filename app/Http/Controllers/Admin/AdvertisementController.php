@@ -29,6 +29,9 @@ class AdvertisementController extends AdminThemeController
                     $date = $data->created_at->format('Y-m-d H:i:s');
                     return $date;
                 })
+                ->addColumn('phone', function ($data) {
+                    return $data->sponsor ? $data->sponsor->contact_number : '';
+                })
                 ->addColumn('city', function ($data) {
                     return $data->city ? $data->city->name : '';
                 })

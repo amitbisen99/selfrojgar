@@ -25,6 +25,7 @@
                         <tr>
                             <th>Id</th>
                             <th>User</th>
+                            <th>Mobile</th>
                             <th>Company</th>
                             <th>Role</th>
                             <th>Created At</th>
@@ -53,6 +54,7 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     {data:'user_id', name: 'user_id'},
+                    {data:'phone', name: 'phone'},
                     {data:'company_name', name: 'company_name'},
                     {data:'role', name: 'role'},
                     {data:'created_at', name: 'created_at'},

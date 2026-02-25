@@ -20,6 +20,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
+                            <th>Mobile</th>
                             <th>Rating</th>
                             <th>City</th>
                             <th>State</th>
@@ -46,6 +47,7 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     {data:'product_name', name: 'product_name'},
+                    {data:'phone', name: 'phone'},
                     {data:'ratings_avg_rating', name: 'ratings_avg_rating'},
                     {data:'city', name: 'city'},
                     {data:'state', name: 'state'},
