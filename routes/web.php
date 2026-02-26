@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\BusinessesController;
 use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\PropertyCategoryController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,58 +61,58 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
-    
-    Route::get('dashboard', [AdminHomeController::class, 'index'])->name('dashboard'); 
-    Route::get('setting', [AdminHomeController::class, 'setting'])->name('dashboard.setting'); 
-    Route::post('setting/update', [AdminHomeController::class, 'settingUpdate'])->name('dashboard.setting.update'); 
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
+    Route::get('dashboard', [AdminHomeController::class, 'index'])->name('dashboard');
+    Route::get('setting', [AdminHomeController::class, 'setting'])->name('dashboard.setting');
+    Route::post('setting/update', [AdminHomeController::class, 'settingUpdate'])->name('dashboard.setting.update');
 
     Route::get('storage/logs', [AdminHomeController::class, 'log'])->name('laravelLogs.index');
     Route::get('clear/logs', [AdminHomeController::class, 'clearLog'])->name('clear.logs');
-    
+
     Route::resource('user', UserController::class);
-    Route::post('user/status', [UserController::class, 'statusUpdate'])->name('user.status'); 
-    
+    Route::post('user/status', [UserController::class, 'statusUpdate'])->name('user.status');
+
     Route::resource('job', JobController::class);
-    Route::post('job/status', [JobController::class, 'statusUpdate'])->name('job.status'); 
+    Route::post('job/status', [JobController::class, 'statusUpdate'])->name('job.status');
 
     Route::resource('industry-job', JobIndustryController::class);
-    Route::post('industry-job/status', [JobIndustryController::class, 'statusUpdate'])->name('industry-job.status'); 
+    Route::post('industry-job/status', [JobIndustryController::class, 'statusUpdate'])->name('industry-job.status');
 
     Route::resource('country', CountryController::class);
-    Route::post('country/status', [CountryController::class, 'statusUpdate'])->name('country.status'); 
+    Route::post('country/status', [CountryController::class, 'statusUpdate'])->name('country.status');
 
     Route::resource('state', StateController::class);
-    Route::post('state/status', [StateController::class, 'statusUpdate'])->name('state.status'); 
+    Route::post('state/status', [StateController::class, 'statusUpdate'])->name('state.status');
 
     Route::resource('city', CityController::class);
-    Route::post('city/status', [CityController::class, 'statusUpdate'])->name('city.status'); 
+    Route::post('city/status', [CityController::class, 'statusUpdate'])->name('city.status');
 
     Route::resource('product-category', ProductCategoryController::class);
     Route::post('product-category/status', [ProductCategoryController::class, 'statusUpdate'])->name('product-category.status');
 
     Route::resource('product', ProductController::class);
-    Route::post('product/status', [ProductController::class, 'statusUpdate'])->name('product.status'); 
+    Route::post('product/status', [ProductController::class, 'statusUpdate'])->name('product.status');
 
     Route::resource('payment', PaymentController::class);
 
     Route::resource('artist', ArtistController::class);
-    Route::post('artist/status', [ArtistController::class, 'statusUpdate'])->name('artist.status'); 
+    Route::post('artist/status', [ArtistController::class, 'statusUpdate'])->name('artist.status');
 
     Route::resource('genres', GenresController::class);
-    Route::post('genres/status', [GenresController::class, 'statusUpdate'])->name('genres.status'); 
+    Route::post('genres/status', [GenresController::class, 'statusUpdate'])->name('genres.status');
 
     Route::resource('genres', GenresController::class);
-    Route::post('genres/status', [GenresController::class, 'statusUpdate'])->name('genres.status'); 
+    Route::post('genres/status', [GenresController::class, 'statusUpdate'])->name('genres.status');
 
     Route::resource('on-demand-category', OnDemandCategoryController::class);
-    Route::post('on-demand-category/status', [OnDemandCategoryController::class, 'statusUpdate'])->name('on-demand-category.status'); 
+    Route::post('on-demand-category/status', [OnDemandCategoryController::class, 'statusUpdate'])->name('on-demand-category.status');
 
     Route::resource('on-demand-service', OnDemandServiceController::class);
-    Route::post('on-demand-service/status', [OnDemandServiceController::class, 'statusUpdate'])->name('on-demand-service.status'); 
+    Route::post('on-demand-service/status', [OnDemandServiceController::class, 'statusUpdate'])->name('on-demand-service.status');
 
     Route::resource('whole-sell-category', WholeSellCategoryController::class);
-    Route::post('whole-sell-category/status', [WholeSellCategoryController::class, 'statusUpdate'])->name('whole-sell-category.status'); 
+    Route::post('whole-sell-category/status', [WholeSellCategoryController::class, 'statusUpdate'])->name('whole-sell-category.status');
 
     Route::resource('whole-sell-product', WholeSellProductController::class);
     Route::post('whole-sell-product/status', [WholeSellProductController::class, 'statusUpdate'])->name('whole-sell-product.status');
@@ -142,4 +143,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::resource('propertyes', PropertyController::class);
     Route::post('propertyes/status', [PropertyController::class, 'statusUpdate'])->name('propertyes.status');
+
+    Route::resource('report', ReportController::class)->only(['index', 'show', 'destroy']);
+    Route::delete('report/{report}/post', [ReportController::class, 'destroyPost'])->name('report.destroyPost');
 });

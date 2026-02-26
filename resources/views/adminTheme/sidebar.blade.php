@@ -10,7 +10,7 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            
+
             <li class="nav-item {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
                 <a class="d-flex align-items-center" href="{{ route('dashboard') }}">
                     <i class="fa fa-home" aria-hidden="true"></i>
@@ -72,7 +72,7 @@
                             <i class="fa fa-circle icone-drop" aria-hidden="true"></i>
                             <span class="menu-title text-truncate" data-i18n="Dashboard">City</span>
                         </a>
-                    </li>   
+                    </li>
                 </ul>
             </li>
 
@@ -220,6 +220,9 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item {{ Request::is('admin/report*') ? 'active' : '' }}">
+                <a class="d-flex align-items-center" href="{{ route('report.index') }}"><i class="fa fa-flag" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Reports">Reports</span></a>
             </li>
             {{-- <li class="nav-item has-sub"><a href="#"><i class="fa fa-id-card-o" aria-hidden="true"></i><span class="menu-title" data-i18n="Icons">User</span></a>
                 <ul class="menu-content">

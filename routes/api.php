@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\BusinessesController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\AdvertisementController;
 use App\Http\Controllers\Api\PropertyController;
+use App\Http\Controllers\Api\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ use App\Http\Controllers\Api\PropertyController;
 |
 */
 
-Route::post('register',[AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('forgot/password', [AuthController::class, 'forgotPassword']);
 Route::post('change/password', [AuthController::class, 'changePassword']);
@@ -49,7 +50,7 @@ Route::post('city', [CountryStateCity::class, 'city']);
 Route::post('payment/create', [PaymentController::class, 'create']);
 
 Route::middleware(['auth:api'])->group(function () {
-    
+
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/tokens', [AuthController::class, 'tokens']);
 
@@ -61,17 +62,17 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('job/store', [JobController::class, 'store']);
     Route::post('job/update/{id}', [JobController::class, 'update']);
     Route::post('job/delete/{id}', [JobController::class, 'destroy']);
-    
+
     Route::post('job/filter', [JobController::class, 'filter']);
     Route::post('job/by/user/{userID}', [JobController::class, 'jobByUser']);
 
     Route::post('job/apply', [JobApplyController::class, 'jobApply']);
     Route::post('job/apply/user/{user_id}', [JobApplyController::class, 'appliedByUser']);
-    
+
     Route::post('profile/by/user/{userID}', [ProfileController::class, 'profileByUser']);
     Route::post('profile/update/by/user/{userID}', [ProfileController::class, 'profileUpdate']);
 
-    Route::group(['prefix' => 'buy-sell/product'], function(){
+    Route::group(['prefix' => 'buy-sell/product'], function () {
         Route::get('category', [ProductController::class, 'category']);
         Route::get('/', [ProductController::class, 'index']);
         Route::get('show/{id}', [ProductController::class, 'show']);
@@ -83,17 +84,17 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [ProductController::class, 'filter']);
         // Route::post('by/user/{userID}', [ProductController::class, 'jobByUser']);
     });
-    Route::group(['prefix' => 'education'], function(){
+    Route::group(['prefix' => 'education'], function () {
         Route::get('/{user}', [EducationController::class, 'index']);
         Route::post('/create', [EducationController::class, 'create']);
     });
 
-    Route::group(['prefix' => 'experiences'], function(){
+    Route::group(['prefix' => 'experiences'], function () {
         Route::get('/{user}', [ExperienceController::class, 'index']);
         Route::post('create', [ExperienceController::class, 'create']);
     });
 
-    Route::group(['prefix' => 'artist'], function(){
+    Route::group(['prefix' => 'artist'], function () {
         Route::get('genres', [ArtistController::class, 'genres']);
         Route::get('/', [ArtistController::class, 'index']);
         Route::get('show/{id}', [ArtistController::class, 'show']);
@@ -104,7 +105,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [ArtistController::class, 'filter']);
     });
 
-    Route::group(['prefix' => 'on-demand-service'], function(){
+    Route::group(['prefix' => 'on-demand-service'], function () {
         Route::get('category', [OnDemandServiceController::class, 'category']);
         Route::get('/', [OnDemandServiceController::class, 'index']);
         Route::get('show/{id}', [OnDemandServiceController::class, 'show']);
@@ -115,7 +116,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [OnDemandServiceController::class, 'filter']);
     });
 
-    Route::group(['prefix' => 'whole-sell-product'], function(){
+    Route::group(['prefix' => 'whole-sell-product'], function () {
         Route::get('category', [WholeSellProductController::class, 'category']);
         Route::get('/', [WholeSellProductController::class, 'index']);
         Route::get('show/{id}', [WholeSellProductController::class, 'show']);
@@ -126,7 +127,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [WholeSellProductController::class, 'filter']);
     });
 
-    Route::group(['prefix' => 'franchise'], function(){
+    Route::group(['prefix' => 'franchise'], function () {
         Route::get('category', [FranchiseBusinessController::class, 'category']);
         Route::get('/', [FranchiseBusinessController::class, 'index']);
         Route::get('show/{id}', [FranchiseBusinessController::class, 'show']);
@@ -138,7 +139,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
 
-    Route::group(['prefix' => 'tourism'], function(){
+    Route::group(['prefix' => 'tourism'], function () {
         Route::get('category', [TourismController::class, 'category']);
         Route::get('/', [TourismController::class, 'index']);
         Route::get('show/{id}', [TourismController::class, 'show']);
@@ -149,7 +150,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [TourismController::class, 'filter']);
     });
 
-    Route::group(['prefix' => 'businesses'], function(){
+    Route::group(['prefix' => 'businesses'], function () {
         Route::get('category', [BusinessesController::class, 'category']);
         Route::get('/', [BusinessesController::class, 'index']);
         Route::get('show/{id}', [BusinessesController::class, 'show']);
@@ -161,7 +162,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('rating', [BusinessesController::class, 'rating']);
     });
 
-    Route::group(['prefix' => 'advertisment'], function(){
+    Route::group(['prefix' => 'advertisment'], function () {
         Route::get('/', [AdvertisementController::class, 'index']);
         Route::get('show/{id}', [AdvertisementController::class, 'show']);
         Route::post('store', [AdvertisementController::class, 'store']);
@@ -171,7 +172,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('filter', [AdvertisementController::class, 'filter']);
     });
 
-    Route::group(['prefix' => 'property'], function(){
+    Route::group(['prefix' => 'property'], function () {
         Route::get('/', [PropertyController::class, 'index']);
         Route::get('show/{id}', [PropertyController::class, 'show']);
         Route::post('store', [PropertyController::class, 'store']);
@@ -182,9 +183,9 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('category', [PropertyController::class, 'category']);
     });
 
-    Route::group(['prefix' => 'notification'], function(){
+    Route::group(['prefix' => 'notification'], function () {
         Route::get('/{id}', [NotificationController::class, 'index']);
     });
 
+    Route::post('/report', [ReportController::class, 'store']);
 });
-
