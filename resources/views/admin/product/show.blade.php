@@ -62,6 +62,10 @@
                         <td>{{ $product->country->name ?? '-' }}</td>
                     </tr>
                     <tr>
+                        <th>Seller Contact Number</th>
+                        <td>{{ $product->seller->contact_number ?? '-' }}</td>
+                    </tr>
+                    <tr>
                         <th>Address</th>
                         <td>{{ $product->address ?? '-' }}</td>
                     </tr>
@@ -80,7 +84,7 @@
                             @endphp
                             @if (!empty($images))
                                 @foreach ($images as $image)
-                                    <img src="{{ asset($image) }}" height="100px" width="100px"> 
+                                    <img src="{{ asset($image) }}" height="100px" width="100px">
                                 @endforeach
                             @else
                                 -

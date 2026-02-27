@@ -46,6 +46,10 @@
                         <td>{{ $tourism->country->name ?? '-' }}</td>
                     </tr>
                     <tr>
+                        <th>Contact Number</th>
+                        <td>{{ $tourism->owner->contact_number ?? '-' }}</td>
+                    </tr>
+                    <tr>
                         <th>About</th>
                         <td>{{ $tourism->about ?? '-' }}</td>
                     </tr>
@@ -84,7 +88,7 @@
                             @endphp
                             @if (!empty($images))
                                 @foreach ($images as $image)
-                                    <img src="{{ asset($image) }}" height="100px" width="100px"> 
+                                    <img src="{{ asset($image) }}" height="100px" width="100px">
                                 @endforeach
                             @else
                                 -

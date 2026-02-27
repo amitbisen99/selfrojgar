@@ -20,37 +20,44 @@ class ArtistController extends AdminThemeController
             $data  = Artist::with(['genres', 'serviceProvider'])->orderBy('id', 'DESC')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->editColumn('user_id', function($data){
-                        $edit = !is_null($data->serviceProvider) ? $data->serviceProvider->name : '';
-                    return '<div class="table-actions"> '. $edit .' </div>';
-
+                ->editColumn('user_id', function ($data) {
+                    $edit = !is_null($data->serviceProvider) ? $data->serviceProvider->name : '';
+                    return '<div class="table-actions"> ' . $edit . ' </div>';
                 })
-                ->editColumn('created_at', function($data){
-                        $date = $data->created_at->format('Y-m-d H:i:s');
+                ->editColumn('created_at', function ($data) {
+                    $date = $data->created_at->format('Y-m-d H:i:s');
                     return $date;
-
                 })
-                ->editColumn('status', function($data){
+                ->editColumn('phone', function ($data) {
+                    $phone = $data->contact_no;
+                    return $phone;
+                })
+                ->addColumn('city', function ($data) {
+                    return $data->city ? $data->city->name : '';
+                })
+                ->addColumn('state', function ($data) {
+                    return $data->state ? $data->state->name : '';
+                })
+                ->editColumn('status', function ($data) {
 
-                        if($data->status == 1){
-                            $switch = '<div class="row">
+                    if ($data->status == 1) {
+                        $switch = '<div class="row">
                                         <div class="col-4 p-0">Inactive</div>
-                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" checked value="1" data-action="'.route("artist.status").'" data-id="'.$data->id.'"></div></div>
+                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" checked value="1" data-action="' . route("artist.status") . '" data-id="' . $data->id . '"></div></div>
                                         <div class="col-3 p-0">Active</div>
                                     </div>';
-                        }else{
-                            $switch = '<div class="row">
+                    } else {
+                        $switch = '<div class="row">
                                         <div class="col-4 p-0">Inactive</div>
-                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" data-action="'.route("artist.status").'" data-id="'.$data->id.'"></div></div>
+                                        <div class="col-3 p-0"><div class="form-check form-switch"><input class="form-check-input status-switch" type="checkbox" data-action="' . route("artist.status") . '" data-id="' . $data->id . '"></div></div>
                                         <div class="col-3 p-0">Active</div>
                                     </div>';
-                        }
+                    }
 
                     return $switch;
-
                 })
-                ->addColumn('action', function($data) {
-                    $action = '<a href="'.route('artist.show', $data).'" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+                ->addColumn('action', function ($data) {
+                    $action = '<a href="' . route('artist.show', $data) . '" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Create"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                     return $action;
                 })
                 ->rawColumns(['user_id', 'action', 'status'])
@@ -74,7 +81,7 @@ class ArtistController extends AdminThemeController
         }
 
         $status = $request->status == 1 ? 'activated' : 'inactivated';
-        notificationMsg('success', 'Artist '.$status.' sucessfully.');
+        notificationMsg('success', 'Artist ' . $status . ' sucessfully.');
 
         return response()->json(['success' => true]);
     }

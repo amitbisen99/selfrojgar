@@ -30,8 +30,6 @@ class ReportController extends AdminThemeController
                 })
                 ->addColumn('action', function ($data) {
                     $action = '<a href="' . route('report.show', $data->id) . '" class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="View Details"><i class="fa fa-eye" aria-hidden="true"></i></a>';
-                    $action .= ' <a href="' . route('report.destroy', $data->id) . '" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Delete Report" onclick="return confirm(\'Are you sure?\')"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-
                     if ($data->post_url) {
                         $action .= ' <a href="' . $data->post_url . '" target="_blank" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Go to Post"><i class="fa fa-share" aria-hidden="true"></i></a>';
                     }

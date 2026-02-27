@@ -20,12 +20,15 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
+                            <th>Mobile</th>
+                            <th>City</th>
+                            <th>State</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                      
+
                     </tbody>
                 </table>
             </div>
@@ -43,6 +46,9 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     {data:'name', name: 'name'},
+                    {data:'phone', name: 'phone'},
+                    {data:'city', name: 'city'},
+                    {data:'state', name: 'state'},
                     {data:'status', name: 'status'},
                     {data:'action', name: 'action'},
                 ]
@@ -51,4 +57,4 @@
         $.fn.dataTable.ext.errMode = 'throw';
       });
     </script>
-@endsection 
+@endsection
