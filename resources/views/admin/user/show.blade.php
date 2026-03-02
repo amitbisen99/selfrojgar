@@ -110,6 +110,7 @@
                             ['id' => 'tourism', 'label' => 'Tourism', 'relation' => 'tourisms', 'destroy_route' => 'tourism-business.destroy','route' => 'tourism-business.show', 'title' => 'name'],
                             ['id' => 'franchise', 'label' => 'Franchise', 'relation' => 'franchiseBusinesses', 'destroy_route' => 'franchise-business.destroy','route' => 'franchise-business.show', 'title' => 'name'],
                             ['id' => 'business', 'label' => 'Business', 'relation' => 'businesses', 'destroy_route' => 'businesses.destroy','route' => 'businesses.show', 'title' => 'name'],
+                            ['id' => 'artist', 'label' => 'Artists', 'relation' => 'artists', 'destroy_route' => 'artist.destroy','route' => 'artist.show', 'title' => 'name'],
                         ];
 
                         $activeTab = null;

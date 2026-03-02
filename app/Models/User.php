@@ -124,4 +124,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Business::class, 'user_id');
     }
+
+    public function artists()
+    {
+        return $this->hasMany(Artist::class, 'user_id');
+    }
 }

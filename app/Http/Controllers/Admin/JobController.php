@@ -19,6 +19,26 @@ class JobController extends AdminThemeController
             $data  = Job::with(['getUser', 'city', 'state'])->orderBy('id', 'DESC');
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->filterColumn('user_id', function ($query, $keyword) {
+                    $query->whereHas('getUser', function ($q) use ($keyword) {
+                        $q->where('name', 'like', "%{$keyword}%");
+                    });
+                })
+                ->filterColumn('phone', function ($query, $keyword) {
+                    $query->whereHas('getUser', function ($q) use ($keyword) {
+                        $q->where('contact_number', 'like', "%{$keyword}%");
+                    });
+                })
+                ->filterColumn('city', function ($query, $keyword) {
+                    $query->whereHas('city', function ($q) use ($keyword) {
+                        $q->where('name', 'like', "%{$keyword}%");
+                    });
+                })
+                ->filterColumn('state', function ($query, $keyword) {
+                    $query->whereHas('state', function ($q) use ($keyword) {
+                        $q->where('name', 'like', "%{$keyword}%");
+                    });
+                })
                 ->editColumn('user_id', function ($data) {
                     $edit = $data->getUser ? $data->getUser->name : '';
                     return '<div class="table-actions"> ' . $edit . ' </div>';

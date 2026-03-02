@@ -61,7 +61,7 @@
                     {data:'city', name: 'city'},
                     {data:'state', name: 'state'},
                     {data:'status', name: 'status'},
-                    {data:'action', name: 'action'},
+                    {data:'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
         });
